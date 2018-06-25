@@ -2,7 +2,7 @@
 
 /**
 *   20180622170100_add_posts.php
-*   Creates the Categories table
+*   Creates the Post_Categories table
 *   mhissdev: 22.06.2018   
 */
 
@@ -12,23 +12,23 @@ class Migration_Add_categories extends CI_Migration{
     {   
         // Create fields
         $this->dbforge->add_field(array(
-            'Category_ID' => array(
+            'Post_Category_ID' => array(
                 'type' => 'INT',
                 'constraint' => 5,
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
-            'Category_Title' => array(
+            'Post_Category_Title' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
         ));
 
         // Set primary key
-        $this->dbforge->add_key('Category_ID', TRUE);
+        $this->dbforge->add_key('Post_Category_ID', TRUE);
 
         // Create table
-        $this->dbforge->create_table('Categories');
+        $this->dbforge->create_table('Post_Categories');
     }
 
 

@@ -14,7 +14,7 @@ class Migration_Add_posts extends CI_Migration{
         $this->dbforge->add_field(array(
             'Post_ID' => array(
                 'type' => 'INT',
-                'constraint' => 5,
+                'constraint' => 11,
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
@@ -28,11 +28,17 @@ class Migration_Add_posts extends CI_Migration{
             ),
             'Post_Description' => array(
                 'type' => 'TEXT',
+            ),
+            'Post_Leading' => array(
+                'type' => 'TEXT',
                 'null' => TRUE,
             ),
             'Post_Content' => array(
                 'type' => 'TEXT',
-                'null' => TRUE,
+            ),
+            'Post_Date' => array(
+                'type' => 'INT',
+                'constraint' => 11,
             ),
             'Category_ID' => array(
                 'type' => 'INT',
