@@ -48,7 +48,7 @@ class Account extends CI_Controller{
     public function signup()
     {   
         // Check to see if we have post data from signup form
-        if(isset($_POST['signup-submit']) && !empty($_POST['signup-submit']))
+        if(!empty($_POST['signup-submit']))
         {   
             // Get POST data
             $this->getSignupPostData();
@@ -82,7 +82,7 @@ class Account extends CI_Controller{
     {
         // Get data from form fields
         $this->data['email'] = $this->input->post('email');
-        $this->data['firsname'] = $this->input->post('firsname');
+        $this->data['firstname'] = $this->input->post('firstname');
         $this->data['lastname'] = $this->input->post('lastname');
         $this->data['password'] = $this->input->post('password');
         $this->data['password2'] = $this->input->post('password2');
