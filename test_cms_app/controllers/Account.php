@@ -1,11 +1,25 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-// Publicly accessible account management controller
+/**
+* Account.php
+* Publicly accessible account management controller  
+* mhisdev 26.06.06
+*/
 
 class Account extends CI_Controller{
 
     // Data to pass to views
     private $data = [];
+
+
+    /**
+    * Constructor
+    */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
 
     /**
     *   Default function: User login page
@@ -13,7 +27,7 @@ class Account extends CI_Controller{
     */
     public function index()
     {
-        // TODO: Login
+        // TODO: Login from
     }
 
 
