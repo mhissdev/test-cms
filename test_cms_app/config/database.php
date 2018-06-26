@@ -98,7 +98,7 @@ $db['default'] = array(
 
 // Local SQL
 $db['mslocal'] = array(
-	'dsn'	=> 'sqlsrv:server=XXXX; Database=TestDB;',
+	'dsn'	=> 'sqlsrv:server=XXXXX; Database=TestDB;',
 	'hostname' => '',
 	'username' => '',
 	'password' => '',
