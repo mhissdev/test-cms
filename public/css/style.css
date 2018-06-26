@@ -1,0 +1,9 @@
+header{
+    background: #0092cb;
+    margin-bottom: 20px;
+}
+
+header a:link, header a:hover, header a:visited, header a:active{
+    color: #ededed;
+    text-decoration: none;
+}
