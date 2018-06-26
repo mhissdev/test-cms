@@ -40,9 +40,19 @@ class Migration_Add_posts extends CI_Migration{
                 'type' => 'INT',
                 'constraint' => 11,
             ),
-            'Category_ID' => array(
+            'User_ID' => array(
                 'type' => 'INT',
-                'constraint' => 5,
+                'constraint' => 11,
+                'unsigned' => TRUE,
+            ),
+            'Post_Status_ID' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'unsigned' => TRUE,
+            ),
+            'Post_Category_ID' => array(
+                'type' => 'INT',
+                'constraint' => 11,
                 'unsigned' => TRUE,
             ),
         ));
