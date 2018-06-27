@@ -30,7 +30,39 @@ class Account extends CI_Controller{
     */
     public function index()
     {
-        // TODO: Login form
+        // Login form
+        if(!empty($_POST['login-submit']))
+        {
+            // Get POST data
+            $this->getLoginPostData();
+
+            // Validation rules
+            $this->createLoginRules();
+
+            // Check for validation errors
+            if($this->form_validation->run() === false)
+            {
+                // Form contains validation errors
+                $this->data['validation_errors'] = validation_errors('<li>', '</li>');
+            }
+            else
+            {
+                // Check email password combination
+                if($this->auth->authenticate($this->data['email'], $this->data['password']) === true)
+                {
+                    // User login success - redirect to dashboard
+                    header('Location: ' . base_url() . 'admin');
+                    die();
+                }
+                else
+                {
+                    $this->data['validation_errors'] = '<li>Email and Password do NOT match</li>';
+                }
+            }
+        }
+
+        // Load view
+        $this->load->view('login', $this->data);
     }
 
 
@@ -62,7 +94,7 @@ class Account extends CI_Controller{
             // Check for validation errors
             if($this->form_validation->run() === false)
             {
-                // From contains validation errors
+                // Form contains validation errors
                 $this->data['validation_errors'] = validation_errors('<li>', '</li>');
             }
             else
@@ -99,8 +131,8 @@ class Account extends CI_Controller{
     */
     private function createSignupRules()
     {
-        // TODO: Ensure Email is unique 
-        // CI 'is_unique' uses query builder therefore we may not want to use this
+        // CI 'is_unique' uses query builder therefore we have used a callback
+        // to check email is unique
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[255]|callback__uniqueEmailCheck');
         $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required|max_length[255]');
         $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required|max_length[255]');
@@ -130,5 +162,28 @@ class Account extends CI_Controller{
             $this->form_validation->set_message('_uniqueEmailCheck', 'Email has already been registered');
             return false;
         }
+    }
+
+
+    /**
+    *   Retrieves POST data from login form
+    *   @return void
+    */
+    private function getLoginPostData()
+    {
+        // Get data from form fields
+        $this->data['email'] = $this->input->post('email');
+        $this->data['password'] = $this->input->post('password');
+    }
+
+
+    /**
+    *   Creates validation rules for login form
+    *   @return void
+    */
+    private function createLoginRules()
+    {
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+        $this->form_validation->set_rules('password', 'Password', 'trim|required');
     }
 }

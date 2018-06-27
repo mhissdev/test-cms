@@ -10,6 +10,7 @@ class User_model extends CI_Model{
 
     /**
     * Checks the user email is unique
+    * @param string 
     * @return bool
     */
     public function isUnique($email)
@@ -30,6 +31,7 @@ class User_model extends CI_Model{
 
     /**
     * Insert new user into database
+    * @param array
     * @return void
     */
     public function insert($data)
@@ -45,5 +47,25 @@ class User_model extends CI_Model{
             $data['lastname'],
             $data['group_id']
         ));
+    }
+
+
+    /**
+    * Get user and user group by email
+    * @param string
+    * @return array
+    */
+    public function getByEmail($email)
+    {
+        // Build query
+        $sql = 'SELECT User_ID, User_Email, User_Password, User_Firstname, Group_Title FROM Users ';
+        $sql .= 'LEFT JOIN Groups ON Users.Group_ID = Groups.Group_ID ';
+        $sql .= 'WHERE User_Email = ?;';
+
+        // execute
+        $query = $this->db->query($sql, array($email));
+
+        // Return result
+        return $query->row_array();
     }
 }

@@ -35,7 +35,7 @@ class Migration_Add_users extends CI_Migration{
                 'type' => 'VARCHAR',
                 'constraint' => '255',
             ),
-            'User_Group_ID' => array(
+            'Group_ID' => array(
                 'type' => 'INT',
                 'constraint' => 11,
                 'unsigned' => TRUE,

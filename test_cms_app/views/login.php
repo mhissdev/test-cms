@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>TODO: Site Name | Signup</title>
+        <title>TODO: Site Name | Login</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="<?php echo base_url(); ?>css/style.css">
     </head>
@@ -24,7 +24,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <h3>Sign Up:</h3>
+                    <h3>Login:</h3>
                     <!-- Validation errors -->
                     <?php
                     if(isset($validation_errors))
@@ -37,30 +37,18 @@
 
                     ?>
 
-                    <!-- Sign Up Form -->
-                    <?php echo form_open('account/signup'); ?>
+                    <!-- Login Form -->
+                    <?php echo form_open('account'); ?>
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger">*</span></label>
                             <input type="email" id="email" class="form-control" name="email" placeholder="Email" value="<?php echo set_value('email');?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="firstname">First Name <span class="text-danger">*</span></label>
-                            <input type="text" id="firstname" class="form-control" name="firstname" placeholder="First Name" value="<?php echo set_value('firstname');?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="lastname">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo set_value('lastname');?>">
                         </div>
                         <div class="form-group">
                             <label for="password">Password <span class="text-danger">*</span></label>
                             <input type="password" id="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <div class="form-group">
-                            <label for="password2">Password Confirm <span class="text-danger">*</span></label>
-                            <input type="password" id="password2" class="form-control" name="password2" placeholder="Re-enter Password">
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" name="signup-submit" value="Sign Up" class="btn btn-success">
+                            <input type="submit" name="login-submit" value="Login" class="btn btn-success">
                         </div>
                     </form>
                 </div>
