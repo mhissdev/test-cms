@@ -69,6 +69,9 @@ class Migration_Add_users extends CI_Migration{
 
         // Create table
         $this->dbforge->create_table('Groups');
+
+        // Seed table
+        $this->seedUserGroups();
     }
 
 
@@ -76,6 +79,22 @@ class Migration_Add_users extends CI_Migration{
     {
         $this->dbforge->drop_table('Groups');
         $this->dbforge->drop_table('Users');
+    }
+
+
+    /**
+    * Seeds the User_Groups table
+    * @return void
+    */
+    private function seedUserGroups()
+    {
+        // Load user groups model
+        $this->load->model('group_model');
+        $this->group_model->insert('Pending');
+        $this->group_model->insert('Suspended');
+        $this->group_model->insert('Admin');
+        $this->group_model->insert('Editor');
+        $this->group_model->insert('User');
     }
 
 }

@@ -31,15 +31,15 @@ class Auth{
         $data['password'] = password_hash($this->encodePassword($data['password']), PASSWORD_BCRYPT);
 
         // Load user model
-        $this->CI->load->model('user_model');
 
-        // Add new user to group
-        // TODO: Set default group
-        $data['group_id'] = 0;
+        // Add new user to default group
+        $groupTitle = $this->CI->config->item('deafult_user_group');
+        $this->CI->load->model('group_model');
+        $data['group_id'] = $this->CI->group_model->getGroupID($groupTitle);
 
         // Insert new user into database
+        $this->CI->load->model('user_model');
         $this->CI->user_model->insert($data);
-        var_dump($data);
     }
 
 

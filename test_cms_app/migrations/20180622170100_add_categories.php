@@ -34,7 +34,7 @@ class Migration_Add_categories extends CI_Migration{
 
     public function down()
     {
-        $this->dbforge->drop_table('Categories');
+        $this->dbforge->drop_table('Post_Categories');
     }
 
 }

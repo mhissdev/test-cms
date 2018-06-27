@@ -71,8 +71,8 @@ class Migration_Add_images extends CI_Migration{
 
     public function down()
     {
-        $this->dbforge->drop_table('Groups');
         $this->dbforge->drop_table('Posts_Images');
+        $this->dbforge->drop_table('Images');
     }
 
 }

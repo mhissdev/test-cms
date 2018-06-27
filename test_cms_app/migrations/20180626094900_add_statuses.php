@@ -34,7 +34,7 @@ class Migration_Add_statuses extends CI_Migration{
 
     public function down()
     {
-        $this->dbforge->drop_table('Statuses');
+        $this->dbforge->drop_table('Post_Statuses');
     }
 
 }
