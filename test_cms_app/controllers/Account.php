@@ -18,6 +18,9 @@ class Account extends CI_Controller{
     public function __construct()
     {
         parent::__construct();
+
+        // Load libraries
+        $this->load->library('auth');
     }
 
 
@@ -27,7 +30,7 @@ class Account extends CI_Controller{
     */
     public function index()
     {
-        // TODO: Login from
+        // TODO: Login form
     }
 
 
@@ -64,7 +67,8 @@ class Account extends CI_Controller{
             }
             else
             {
-                // TODO: Insert into database
+                // Insert new user into database
+                $this->auth->addUser($this->data);
             }
 
         }
@@ -97,10 +101,34 @@ class Account extends CI_Controller{
     {
         // TODO: Ensure Email is unique 
         // CI 'is_unique' uses query builder therefore we may not want to use this
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[255]');
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|max_length[255]|callback__uniqueEmailCheck');
         $this->form_validation->set_rules('firstname', 'Firstname', 'trim|required|max_length[255]');
         $this->form_validation->set_rules('lastname', 'Lastname', 'trim|required|max_length[255]');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[8]');
         $this->form_validation->set_rules('password2', 'Password Confirm', 'trim|required|min_length[8]|matches[password]');
+    }
+
+
+    /**
+    *   Checks the supplied email is unique
+    *   The undrscore is used to prevent access to the 'public' function
+    *   @return void
+    */
+    public function _uniqueEmailCheck($email)
+    {
+        // Load user model
+        $this->load->model('user_model');
+
+        if($this->user_model->isUnique($email) === true)
+        {
+            // Email is unique
+            return true;
+        }
+        else
+        {
+            // Email is NOT unique
+            $this->form_validation->set_message('_uniqueEmailCheck', 'Email has already been registered');
+            return false;
+        }
     }
 }

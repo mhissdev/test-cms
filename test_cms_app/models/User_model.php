@@ -32,7 +32,7 @@ class User_model extends CI_Model{
     * Insert new user into database
     * @return void
     */
-    public insert($data)
+    public function insert($data)
     {
         // Build query
         $sql = 'INSERT INTO Users (User_Email, User_Password, User_Firstname, User_LastName, User_Group_ID) VALUES (?, ?, ?, ?, ?)';
@@ -43,7 +43,6 @@ class User_model extends CI_Model{
             $data['password'],
             $data['firstname'],
             $data['lastname'],
-            $data['email'],
             $data['group_id']
         ));
     }

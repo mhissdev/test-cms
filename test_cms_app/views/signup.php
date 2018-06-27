@@ -41,15 +41,15 @@
                     <?php echo form_open('account/signup'); ?>
                         <div class="form-group">
                             <label for="email">Email <span class="text-danger">*</span></label>
-                            <input type="email" id="email" class="form-control" name="email" placeholder="Enter Your Email" value="<?php echo set_value('email');?>">
+                            <input type="email" id="email" class="form-control" name="email" placeholder="Email" value="<?php echo set_value('email');?>">
                         </div>
                         <div class="form-group">
                             <label for="firstname">First Name <span class="text-danger">*</span></label>
-                            <input type="text" id="firstname" class="form-control" name="firstname" placeholder="Enter Your First Name">
+                            <input type="text" id="firstname" class="form-control" name="firstname" placeholder="First Name" value="<?php echo set_value('firstname');?>">
                         </div>
                         <div class="form-group">
                             <label for="lastname">Last Name <span class="text-danger">*</span></label>
-                            <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Enter Your Last Name">
+                            <input type="text" id="lastname" class="form-control" name="lastname" placeholder="Last Name" value="<?php echo set_value('lastname');?>">
                         </div>
                         <div class="form-group">
                             <label for="password">Password <span class="text-danger">*</span></label>
