@@ -83,7 +83,7 @@ class Migration_Add_users extends CI_Migration{
 
 
     /**
-    * Seeds the User_Groups table
+    * Seeds the Groups table
     * @return void
     */
     private function seedUserGroups()

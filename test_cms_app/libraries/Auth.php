@@ -90,7 +90,7 @@ class Auth{
         // Ensure group title is lowercase
         $groupTitle = strtolower($groupTitle);
 
-        // Get denied groupsfromconfig
+        // Get denied groups from config
         $deniedGroups = $this->CI->config->item('deny_login_groups');
         $deniedGroups = array_map('strtolower', $deniedGroups);
 
