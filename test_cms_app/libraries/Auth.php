@@ -81,7 +81,7 @@ class Auth{
 
 
     /**
-    *   Check user is in denied group
+    *   Check user is in denied login group
     *   @param string
     *   @return bool
     */
@@ -96,6 +96,39 @@ class Auth{
 
         // Search
         return in_array($groupTitle, $deniedGroups, true);
+    }
+
+
+    /**
+    * Check if user is logged in
+    * @return bool
+    */
+    public function isLoggedIn()
+    {
+        if(!empty($_SESSION['user_id']) && !empty($_SESSION['user_group']) && !empty($_SESSION['firstname']))
+        {   
+            // User is logged in
+            return true;
+        }
+
+        // User is NOT logged in
+        return false;
+    }
+
+
+    /**
+    * Check user is logged in, and redirect to login page
+    * @return bool
+    */
+    public function checkLogin()
+    {
+        if($this->isLoggedIn() === false)
+        {
+            // Redirect user to login page
+            //$url = $this->CI->config->item('base_url') . $this->CI->config->item('login_url');
+            header('Location: ' . base_url() . $this->CI->config->item('login_url'));
+            die();
+        }
     }
 
 

@@ -15,8 +15,17 @@ class Admin extends CI_Controller{
     {
         parent::__construct();
 
-        // Load navigation library
-        $this->load->library('navigation_admin');
+        // Load libraries
+        $this->load->library(array('auth', 'navigation_admin'));
+
+        // Check Login
+        $this->auth->checkLogin();
+
+        // Set nav name
+        $this->data['nav_name'] = 'Dashboard';
+
+        // Set page title
+        $this->data['page_title'] = $this->config->item('site_name') . ' | Dashboard';
     }
 
 

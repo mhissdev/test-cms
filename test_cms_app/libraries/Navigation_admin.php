@@ -20,9 +20,9 @@ class Navigation_admin extends Navigation_base
         parent::__construct();
 
         // Add navigation items
-        $this->addItem('Dashboard', 'dashboard');
-        $this->addItem('Categories', 'categories');
-        $this->addItem('Posts', 'posts');
-        $this->addItem('Settings', 'settings');
+        $this->addItem('Dashboard', 'admin');
+        $this->addItem('Categories', 'admin/categories');
+        $this->addItem('Posts', 'admin/posts');
+        $this->addItem('Settings', 'admin/settings');
     }
 }
