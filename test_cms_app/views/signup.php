@@ -29,10 +29,14 @@
                     <?php
                     if(isset($validation_errors))
                     {
+                        /*
                         $str = '<div class="alert alert-danger" role="alert">';
                         $str .= '<p>Please fix the following errors:-</p><ul>';
                         $str .= $validation_errors . '</ul></div>';
                         echo($str);
+                        */
+
+                        echo $this->bootstrap_alerts->validation($validation_errors);
                     }
 
                     ?>

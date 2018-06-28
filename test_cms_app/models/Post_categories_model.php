@@ -19,7 +19,24 @@ class Post_categories_model extends CI_Model{
         $sql = 'INSERT INTO Post_Categories (Post_Category_Title) VALUES (?)';
 
         // Execute
-        $this->db->query($sql, array($groupTitle));
+        $this->db->query($sql, array($categoryTitle));
+    }
+
+
+    /**
+    * Update category
+    * @return void
+    */
+    public function update($data)
+    {
+        // Build query
+        $sql = 'UPDATE Post_Categories SET Post_Category_Title = ? WHERE Post_Category_ID = ?;';
+
+        // Execute
+        $this->db->query($sql, array(
+            $data['category_title'],
+            $data['category_id']
+        ));
     }
 
 
