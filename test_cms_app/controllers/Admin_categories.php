@@ -32,6 +32,9 @@ class Admin_categories extends CI_Controller{
 
         // Load Post Categories model
         $this->load->model('post_categories_model');
+
+        // Get all categories
+        $this->data['categories'] = $this->post_categories_model->getAll();
     }
 
 
