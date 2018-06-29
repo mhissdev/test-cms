@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <?php $this->load->view('templates/admin_header_open'); ?>
-<!-- Datatable CSS -->
+<!-- Datatables CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <?php $this->load->view('templates/admin_header_close'); ?>
 

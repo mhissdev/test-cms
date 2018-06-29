@@ -83,9 +83,9 @@ class Admin_categories extends CI_Controller{
         {
             $this->data['category_title'] = '';
         }
-        else
+        else if(empty($_POST['category_submit']))
         {
-            // Retrieve data from database
+            // Retrieve data from database if NOT POST request
             $data = $this->post_categories_model->getByID($this->data['category_id']);
             $this->data['category_title'] = $data['Post_Category_Title'];
         }
