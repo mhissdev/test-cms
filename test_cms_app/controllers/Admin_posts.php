@@ -70,6 +70,7 @@ class Admin_posts extends CI_Controller{
 
         // Retrieve menu data
         $this->setCategoriesSelectData();
+        $this->setPostStatusesSelectData();
 
         // Set post default values
         $this->setPostDefaultValues();
@@ -120,5 +121,32 @@ class Admin_posts extends CI_Controller{
         }
 
         $this->data['post_categories'] = $options;
+    }
+
+
+    /**
+    *   Sets data for post statuses select menu
+    *
+    *   @return void
+    */
+    private function setPostStatusesSelectData()
+    {
+        // Set First option
+        $options = [];
+        $options['0'] = '-- Select --';
+
+        // Get categories from database
+        $this->load->model('post_statuses_model');
+        $statuses = $this->post_statuses_model->getAll();
+
+        foreach($statuses as $status)
+        {
+            // My intention was to Cast ID to a string
+            // However this still gets added as an int into the array
+            $key =  (string)$status['Post_Status_ID'];
+            $options[$key] = $status['Post_Status_Title'];
+        }
+
+        $this->data['post_statuses'] = $options;
     }
 }

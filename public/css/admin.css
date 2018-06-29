@@ -5,3 +5,8 @@ body{
 .bg-custom{
   background-color: #0092cb;
 }
+
+.form-card{
+    padding: 10px;
+    background-color: #ededed;
+}

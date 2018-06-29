@@ -29,12 +29,30 @@ class Migration_Add_statuses extends CI_Migration{
 
         // Create table
         $this->dbforge->create_table('Post_Statuses');
+
+        // Seed table
+        $this->seedPostStatuses();
     }
 
 
     public function down()
     {
         $this->dbforge->drop_table('Post_Statuses');
+    }
+
+
+    /**
+    * Seeds the Posst Statuses table
+    * @return void
+    */
+    private function seedPostStatuses()
+    {
+        $this->load->model('post_statuses_model');
+        $this->post_statuses_model->insert('Awaiting Approval');
+        $this->post_statuses_model->insert('Draft');
+        $this->post_statuses_model->insert('Published');
+        $this->post_statuses_model->insert('Unpublished');
+        $this->post_statuses_model->insert('Trash');
     }
 
 }

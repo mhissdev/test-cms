@@ -28,6 +28,7 @@ class Migration_Add_posts extends CI_Migration{
             ),
             'Post_Description' => array(
                 'type' => 'TEXT',
+                'null' => TRUE,
             ),
             'Post_Leading' => array(
                 'type' => 'TEXT',
@@ -35,6 +36,7 @@ class Migration_Add_posts extends CI_Migration{
             ),
             'Post_Content' => array(
                 'type' => 'TEXT',
+                'null' => TRUE,
             ),
             'Post_Date' => array(
                 'type' => 'INT',

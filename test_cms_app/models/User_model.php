@@ -37,7 +37,7 @@ class User_model extends CI_Model{
     public function insert($data)
     {
         // Build query
-        $sql = 'INSERT INTO Users (User_Email, User_Password, User_Firstname, User_LastName, User_Group_ID) VALUES (?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO Users (User_Email, User_Password, User_Firstname, User_LastName, Group_ID) VALUES (?, ?, ?, ?, ?)';
 
         // Execute
         $this->db->query($sql, array(
