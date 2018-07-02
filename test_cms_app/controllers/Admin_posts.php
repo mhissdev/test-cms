@@ -30,6 +30,9 @@ class Admin_posts extends CI_Controller{
 
         // Set page title
         $this->data['page_title'] = $this->config->item('site_name') . ' | Posts';
+
+        // Load posts model
+        $this->load->model('posts_model');
     }
 
 
@@ -39,6 +42,9 @@ class Admin_posts extends CI_Controller{
     */
     public function index()
     {
+        // Load post List to display in table
+        $this->data['posts'] = $this->posts_model->getList();
+
         // Load view
         $this->load->view('admin/posts', $this->data);
     }
@@ -91,6 +97,7 @@ class Admin_posts extends CI_Controller{
     {
         if($this->formMode === 'add')
         {
+            // Default value
             $this->data['post_title'] = '';
             $this->data['post_description'] = '';
             $this->data['post_leading'] = '';
@@ -101,7 +108,25 @@ class Admin_posts extends CI_Controller{
         }
         else
         {
-            // TODO: Retrieve post values from database
+            // Retrieve post values from database
+            $data = $this->posts_model->getByID($this->data['post_id']);
+
+            // Check we have data
+            if(empty($data))
+            {
+                // Something went wrong - Probably an invalid Post ID
+                die('Unable to retrieve post');
+            }
+
+            // Copy values form database query
+            $this->data['post_title'] = $data['Post_Title'];
+            $this->data['post_description'] = $data['Post_Description'];
+            $this->data['post_leading'] = $data['Post_Leading'];;
+            $this->data['post_content'] = $data['Post_Content'];;
+            $this->data['post_date'] = date('Y-m-d', $data['Post_Date']);
+            $this->data['post_status_id'] = $data['Post_Status_ID'];
+            $this->data['post_category_id'] = $data['Post_Category_ID'];
+            $this->data['user_id'] = $data['User_ID'];
         }
     }
 
@@ -181,7 +206,8 @@ class Admin_posts extends CI_Controller{
             }
             else
             {
-                // Validation OK
+                // Validation OK - Insert or update data for post
+                $this->insertUpdatePost();
             }
         }
     }
@@ -213,7 +239,7 @@ class Admin_posts extends CI_Controller{
         $this->form_validation->set_rules('post_title', 'Post Title', 'trim|required|max_length[255]|callback__postTitleRegex');
         $this->form_validation->set_rules('post_date', 'Post Date', 'trim|required|callback__postDate');
         $this->form_validation->set_rules('post_category_id', 'Post Category', 'required');
-         $this->form_validation->set_rules('post_status_id', 'Post Status', 'required');
+        $this->form_validation->set_rules('post_status_id', 'Post Status', 'required');
     }
 
 
@@ -276,6 +302,53 @@ class Admin_posts extends CI_Controller{
         $slug = str_replace("'", '', $postTitle);
 
         // Replace white space with dash
-        return str_replace(' ', '-', $slug);
+        $slug = str_replace(' ', '-', $slug);
+
+        // Return lowercase
+        return strtolower($slug);
+    }
+
+
+    /**
+    *   Insert or update data into database
+    *   @return void
+    */
+    private function insertUpdatePost()
+    {
+        // Convert date to timestamp
+        $date = DateTime::createFromFormat('Y-m-d', $this->data['post_date']);
+        $this->data['post_date_timestamp'] = $date->getTimestamp();
+
+        // Generate slug
+        $this->data['post_slug'] = $this->generateSlug($this->data['post_title']);
+
+
+        if($this->formMode === 'add')
+        {
+            // Get user ID
+            $this->data['user_id'] = $this->auth->getUserID();
+
+            // Insert ito database
+            $this->posts_model->insert($this->data);
+
+            // Set success message
+            $this->session->set_flashdata('action_message', '<p>Post Successfully Added!</p>');
+
+            // Redirect to main admin posts page
+            header('Location: ' . base_url() . 'admin/posts');
+            die();
+        }
+        else
+        {
+            // Update database
+            $this->posts_model->update($this->data);
+
+            // Set success message
+            $this->session->set_flashdata('action_message', '<p>Post Successfully Updated!</p>');
+
+            // Redirect to main admin posts page
+            header('Location: ' . base_url() . 'admin/posts');
+            die();
+        }
     }
 }
