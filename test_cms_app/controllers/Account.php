@@ -142,7 +142,7 @@ class Account extends CI_Controller{
 
 
     /**
-    *   Checks the supplied email is unique
+    *   Callback for form validation. Checks the supplied email is unique
     *   The undrscore is used to prevent access to the 'public' function
     *   @return void
     */

@@ -2,12 +2,19 @@
 <?php $this->load->view('templates/admin_header_open'); ?>
         <!-- JQuery UI -->
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
-        <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> -->
 <?php $this->load->view('templates/admin_header_close'); ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <h3><?php echo $form_title; ?></h3>
+                <?php
+                // Validation errors
+                if(isset($validation_errors))
+                {
+                    // Output Bootstrap alert message
+                    echo $this->bootstrap_alerts->validation($validation_errors);
+                }
+                ?>
                 <?php echo form_open(current_url()); ?>
                 <div class="row">
                     <div class="col-md-8">

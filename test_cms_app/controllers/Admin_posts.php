@@ -75,6 +75,9 @@ class Admin_posts extends CI_Controller{
         // Set post default values
         $this->setPostDefaultValues();
 
+        // Process POST data
+        $this->processPostData();
+
         // Load view
         $this->load->view('admin/posts_manage', $this->data);
     }
@@ -98,7 +101,7 @@ class Admin_posts extends CI_Controller{
         }
         else
         {
-            // TODO: Retrieve post from database
+            // TODO: Retrieve post values from database
         }
     }
 
@@ -111,8 +114,7 @@ class Admin_posts extends CI_Controller{
     private function setCategoriesSelectData()
     {
         // Set First option
-        $options = [];
-        $options['0'] = '-- Select --';
+        $options = array('' => '-- Select --');
 
         // Get categories from database
         $this->load->model('post_categories_model');
@@ -120,7 +122,7 @@ class Admin_posts extends CI_Controller{
 
         foreach($categories as $category)
         {
-            // My intention was to Cast ID to a string
+            // The intention was to Cast ID to a string
             // However this still gets added as an int into the array
             $key =  (string)$category['Post_Category_ID'];
             $options[$key] = $category['Post_Category_Title'];
@@ -138,8 +140,7 @@ class Admin_posts extends CI_Controller{
     private function setPostStatusesSelectData()
     {
         // Set First option
-        $options = [];
-        $options['0'] = '-- Select --';
+        $options = array('' => '-- Select --');
 
         // Get categories from database
         $this->load->model('post_statuses_model');
@@ -147,12 +148,134 @@ class Admin_posts extends CI_Controller{
 
         foreach($statuses as $status)
         {
-            // My intention was to Cast ID to a string
+            // The intention was to Cast ID to a string
             // However this still gets added as an int into the array
             $key =  (string)$status['Post_Status_ID'];
             $options[$key] = $status['Post_Status_Title'];
         }
 
         $this->data['post_statuses'] = $options;
+    }
+
+
+    /**
+    *   Process POST data
+    *   @return void
+    */
+    private function processPostData()
+    {
+        // Check we have POST data
+        if(!empty($_POST['post_submit']))
+        {
+            // Get post POST data
+            $this->getPostPostData();
+
+            // Create validation rules
+            $this->createPostRules();
+
+            // Check for validation errors
+            if($this->form_validation->run() === false)
+            {
+                // Form contains validation errors
+                $this->data['validation_errors'] = validation_errors('<li>', '</li>');
+            }
+            else
+            {
+                // Validation OK
+            }
+        }
+    }
+
+
+    /**
+    *   Retrieve POST data for posts
+    *   @return void
+    */
+    private function getPostPostData()
+    {
+        // Get data from form fields
+        $this->data['post_title'] = $this->input->post('post_title');
+        $this->data['post_description'] = $this->input->post('post_description');
+        $this->data['post_leading'] = $this->input->post('post_leading');
+        $this->data['post_content'] = $this->input->post('post_content');
+        $this->data['post_date'] = $this->input->post('post_date');
+        $this->data['post_status_id'] = $this->input->post('post_status_id');
+        $this->data['post_category_id'] = $this->input->post('post_category_id');
+    }
+
+
+    /**
+    *   Create validation rules for posts
+    *   @return void
+    */
+    public function createPostRules()
+    {
+        $this->form_validation->set_rules('post_title', 'Post Title', 'trim|required|max_length[255]|callback__postTitleRegex');
+        $this->form_validation->set_rules('post_date', 'Post Date', 'trim|required|callback__postDate');
+        $this->form_validation->set_rules('post_category_id', 'Post Category', 'required');
+         $this->form_validation->set_rules('post_status_id', 'Post Status', 'required');
+    }
+
+
+    /**
+    *   Callback function for post title validation
+    *   @return bool
+    */
+    public function _postTitleRegex($postTitle)
+    {
+        if(preg_match("/^[a-zA-Z0-9\s-']*$/", $postTitle))
+        {
+            return true;
+        }
+
+        // Validation failed
+        $this->form_validation->set_message('_postTitleRegex', 'The {field} field may only contain alpha-numeric characters, dashes, and spaces.');
+        return false;
+    }
+
+
+    /**
+    *   Callback function for post date validation
+    *   Date MUST be 'Y-m-d' format
+    *   @return bool
+    */
+     public function _postDate($postDate)
+     {
+        // Validation success flag
+        $valid = false;
+
+        // Get date elements
+        $dateElements = explode('-', $postDate);
+
+        // Make sure dateElements array has a length of 3
+        if(count($dateElements) === 3)
+        {
+            $valid = checkdate($dateElements[1], $dateElements[2], $dateElements[0]);
+        }
+
+        // Return result
+        if($valid)
+        {
+            return true;
+        }
+
+        // Validation failed
+        $this->form_validation->set_message('_postDate', 'The {field} field must contain a valid date.');
+        return false;
+
+     }
+
+
+    /**
+    *   Generate slug from post title
+    *   @return string
+    */
+    private function generateSlug($postTitle)
+    {
+        // Remove apostrophes
+        $slug = str_replace("'", '', $postTitle);
+
+        // Replace white space with dash
+        return str_replace(' ', '-', $slug);
     }
 }
