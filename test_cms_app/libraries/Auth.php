@@ -133,6 +133,22 @@ class Auth{
 
 
     /**
+    * Gests current user ID
+    * @return int
+    */
+    public function getUserID()
+    {
+        if(!empty($_SESSION['user_id']))
+        {
+            return $_SESSION['user_id'];
+        }
+
+        // User probably not logged in
+        return null;
+    }
+
+
+    /**
     *   Log user in and create session variables
     *   @param array
     *   @return void

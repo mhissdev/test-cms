@@ -20,12 +20,12 @@
                             <div class="form-group">
                                 <label for="post_leading">Leading Text</label>
                                 <textarea class="form-control" id="post_leading" name="post_leading" rows="2" 
-                                    placeholder="Leading paragraph goes here..."></textarea>
+                                    placeholder="Leading paragraph goes here..."><?php echo set_value('post_leading', $post_leading); ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="post_content">Main Content</label>
                                 <textarea class="form-control" id="post_content" name="post_content" rows="12" 
-                                placeholder="Main content goes here..."></textarea>
+                                placeholder="Main content goes here..."><?php echo set_value('post_content', $post_content); ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -35,24 +35,24 @@
                                 <label for="post_description">Post Description</label>
                                 <p class="small">This is used for SEO purposes and should be a short summary of your content</p>
                                 <textarea class="form-control" id="post_description" name="post_description" rows="2" 
-                                placeholder="SEO description goes here..."></textarea>
+                                placeholder="SEO description goes here..."><?php echo set_value('post_description', $post_description); ?></textarea>
                             </div>
                             <div class="form-group">
                                 <label for="post_date">Post Date <span class="text-danger">*</span></label>
-                                <input type="text" id="post_date" class="form-control" name="post_date" value="">
+                                <input type="text" id="post_date" class="form-control" name="post_date">
                             </div>
                             <div class="form-group">
                                 <label for="post_category">Category <span class="text-danger">*</span></label>
                                 <?php 
                                 $extra = 'class="form-control" id="post_category"';
-                                echo form_dropdown('post_category', $post_categories, '0', $extra); 
+                                echo form_dropdown('post_category_id', $post_categories, set_value('post_category_id', $post_category_id), $extra); 
                                 ?>
                             </div>
                             <div class="form-group">
                                 <label for="post_status">Status <span class="text-danger">*</span></label>
                                 <?php 
                                 $extra = 'class="form-control" id="post_status"';
-                                echo form_dropdown('post_status', $post_statuses, '0', $extra); 
+                                echo form_dropdown('post_status_id', $post_statuses, set_value('post_status_id', $post_status_id), $extra); 
                                 ?>
                             </div>
                             <div class="form-group">
@@ -75,7 +75,8 @@
         $('#post_date').datepicker();
 
         // Set format ("yy-mm-dd")
-        $('#post_date').datepicker('option', 'dateFormat', 'dd-mm-yy');
+        $('#post_date').datepicker('option', 'dateFormat', 'yy-mm-dd');
+        $('#post_date').datepicker('setDate', '<?php echo set_value('post_date', $post_date); ?>');
 
         // Tiny MCE
             tinymce.init({

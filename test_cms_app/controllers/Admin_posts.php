@@ -89,8 +89,14 @@ class Admin_posts extends CI_Controller{
         if($this->formMode === 'add')
         {
             $this->data['post_title'] = '';
+            $this->data['post_description'] = '';
+            $this->data['post_leading'] = '';
+            $this->data['post_content'] = '';
+            $this->data['post_date'] = date('Y-m-d');
+            $this->data['post_status_id'] = '';
+            $this->data['post_category_id'] = '';
         }
-        else if(empty($_POST['post_submit']))
+        else
         {
             // TODO: Retrieve post from database
         }
