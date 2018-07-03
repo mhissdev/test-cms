@@ -35,6 +35,9 @@ class Admin_categories extends CI_Controller{
 
         // Get all categories
         $this->data['categories'] = $this->post_categories_model->getAll();
+
+        // Escape categories before passing to view
+        $this->escapeCategories();
     }
 
 
@@ -168,4 +171,16 @@ class Admin_categories extends CI_Controller{
         $this->form_validation->set_rules('category_title', 'Category Title', 'trim|required|max_length[255]');
     }
 
+
+    /**
+    *   Escape categories for output
+    *   @return void
+    */
+    private function escapeCategories()
+    {
+        foreach($this->data['categories'] as $key => $category)
+        {
+            $this->data['categories'][$key]['Post_Category_Title'] = $this->security->xss_clean($category['Post_Category_Title'] );
+        }
+    }
 }

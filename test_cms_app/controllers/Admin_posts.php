@@ -45,6 +45,9 @@ class Admin_posts extends CI_Controller{
         // Load post List to display in table
         $this->data['posts'] = $this->posts_model->getList();
 
+        // Escape posts befor being passed to view
+        $this->escapePosts();
+
         // Load view
         $this->load->view('admin/posts', $this->data);
     }
@@ -349,6 +352,23 @@ class Admin_posts extends CI_Controller{
             // Redirect to main admin posts page
             header('Location: ' . base_url() . 'admin/posts');
             die();
+        }
+    }
+
+
+    /**
+    *   Escape post before being passed to view
+    *   @return void
+    */
+    private function escapePosts()
+    {
+        foreach ($this->data['posts'] as $key => $post) 
+        {
+            $this->data['posts'][$key]['Post_Title'] = $this->security->xss_clean($post['Post_Title']);
+            $this->data['posts'][$key]['Post_Category_Title'] = $this->security->xss_clean($post['Post_Category_Title']);
+            $this->data['posts'][$key]['Post_Title'] = $this->security->xss_clean($post['Post_Title']);
+            $this->data['posts'][$key]['User_Firstname'] = $this->security->xss_clean($post['User_Firstname']);
+            $this->data['posts'][$key]['User_Lastname'] = $this->security->xss_clean($post['User_Lastname']);
         }
     }
 }
