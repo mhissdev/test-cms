@@ -149,6 +149,38 @@ class Auth{
 
 
     /**
+    * Check current user password
+    * @return bool
+    */
+    public function checkCurrentUserPassword($password)
+    {
+        // Get user ID
+        $userID = $this->getUserID();
+
+        // Load user model
+        $this->CI->load->model('user_model');
+
+        // Get user storred password
+        $data = $this->CI->user_model->getPassword($userID);
+
+        if(!empty($data))
+        {
+            // Set hash
+            $hash = $data['User_Password']; 
+
+            // Encode password before passing to password_verify
+            $password = $this->encodePassword($password);
+
+            // return result
+            return password_verify($password, $hash);
+        }
+
+        // Unable to verify oassword
+        return false;
+    }
+
+
+    /**
     *   Log user in and create session variables
     *   @param array
     *   @return void

@@ -68,4 +68,22 @@ class User_model extends CI_Model{
         // Return result
         return $query->row_array();
     }
+
+
+    /**
+    * Get user password
+    * @param int User ID
+    * @return array
+    */
+    public function getPassword($userID)
+    {
+        // Build query
+        $sql = 'SELECT User_Password FROM Users WHERE User_ID = ?;';
+
+        // execute
+        $query = $this->db->query($sql, array($userID));
+
+        // Return result
+        return $query->row_array();
+    }
 }
