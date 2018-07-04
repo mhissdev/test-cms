@@ -30,7 +30,7 @@
                                     placeholder="Leading paragraph goes here..."><?php echo set_value('post_leading', $post_leading); ?></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="post_content">Main Content</label>
+                                <p class="small btn btn-primary" id="image-insert">Insert Image</p>
                                 <textarea class="form-control" id="post_content" name="post_content" rows="12" 
                                 placeholder="Main content goes here..."><?php echo set_value('post_content', $post_content); ?></textarea>
                             </div>
@@ -86,15 +86,22 @@
         $('#post_date').datepicker('setDate', '<?php echo set_value('post_date', $post_date); ?>');
 
         // Tiny MCE
-            tinymce.init({
-            selector: '#post_content',
-            menubar: false,
-            plugins: [
-                'advlist autolink lists link image charmap print preview anchor',
-                'searchreplace visualblocks code fullscreen',
-                'insertdatetime media table contextmenu paste code'
+        tinymce.init({
+        selector: '#post_content',
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table contextmenu paste code'
             ],
-            toolbar: 'undo redo | styleselect | bold italic | bullist numlist | link image | code'
+            toolbar: 'undo redo | bold italic | bullist numlist | link | code'
+        });
+
+        // Insert Image
+        $('#image-insert').click(function(){
+            // var content = '<img src="" alt="Some Image">';
+            var content = '<p>TODO:</p>';
+            tinymce.activeEditor.execCommand('mceInsertContent', false, content);
         });
     });
 
