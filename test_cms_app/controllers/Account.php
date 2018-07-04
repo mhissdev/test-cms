@@ -72,7 +72,14 @@ class Account extends CI_Controller{
     */
     public function logout()
     {
-        // TODO: Logout
+        // Remove session data
+        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata('user_group');
+        $this->session->unset_userdata('user_firstname');
+
+        // Redirect to base url
+        header('Location: ' . base_url());
+        die();
     }
 
 

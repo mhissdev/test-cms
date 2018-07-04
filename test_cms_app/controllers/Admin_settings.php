@@ -59,7 +59,14 @@ class Admin_settings extends CI_Controller{
          }
          else
          {
+            // Get new password from POST data
+            $password = $this->input->post('password');
+
             // Update password
+            $this->auth->updatePassword($password);
+
+            // Set success message
+            $this->data['action_message'] = '<p>Password Successfully updated</p>';
          }
     }
 

@@ -181,6 +181,20 @@ class Auth{
 
 
     /**
+    * Update current user password
+    * @return void
+    */
+    public function updatePassword($password)
+    {
+        // Encode and hash new password
+        $password = password_hash($this->encodePassword($password), PASSWORD_BCRYPT);
+
+        // Get user ID
+        $userID = $this->getUserID();
+    }
+
+
+    /**
     *   Log user in and create session variables
     *   @param array
     *   @return void
@@ -190,7 +204,7 @@ class Auth{
         // Set session data
         $_SESSION['user_id'] = $data['User_ID'];
         $_SESSION['user_group'] = $data['Group_Title'];
-        $_SESSION['firstname'] = $data['User_Firstname'];
+        $_SESSION['user_firstname'] = $data['User_Firstname'];
 
         // Regenerate session ID for extra security
         session_regenerate_id(true);
@@ -204,5 +218,15 @@ class Auth{
     private function encodePassword($password)
     {
         return base64_encode(hash('sha256', $password, true));
+    }
+
+
+    /**
+    * Get welcome message for navbar
+    * @return string
+    */
+    public function getWelcome()
+    {
+        return isset($_SESSION['user_firstname'] ) ? 'Welcome ' . $_SESSION['user_firstname'] : '';
     }
 }

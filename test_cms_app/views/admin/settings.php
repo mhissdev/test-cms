@@ -10,6 +10,13 @@
             <div class="col-md-4">
             	<h3>Change Password</h3>
             	<?php
+            	// Action message
+                if(isset($action_message))
+                {
+                    // Output Bootstrap alert message
+                    echo $this->bootstrap_alerts->alert($action_message);
+                }
+
             	// Validation errors
                 if(isset($validation_errors))
                 {

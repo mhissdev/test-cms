@@ -86,4 +86,20 @@ class User_model extends CI_Model{
         // Return result
         return $query->row_array();
     }
+
+
+    /**
+    * Update user password
+    * @param string $password
+    * @param string $userID
+    * @return void
+    */
+    public function updatePassword($userID, $password)
+    {
+        // Build query
+        $sql = 'UPDATE Users SET User_Password = ? WHERE User_ID = ?';
+
+        // execute
+        $this->db->query($sql, array($password, $userID));
+    }
 }
