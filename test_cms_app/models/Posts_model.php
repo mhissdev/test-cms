@@ -17,33 +17,11 @@ class Posts_model extends CI_Model{
     {
         // Build query
         $sql = 'INSERT INTO Posts (Post_Title, Post_Slug, Post_Description, Post_Leading, Post_Content, Post_Date, ';
-        $sql .= 'User_ID, Post_Status_ID, Post_Category_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);';
+        $sql .= 'User_ID, Post_Status_ID, Post_Category_ID, Post_Date_Created, Post_Date_Updated) ';
+        $sql .= 'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
 
-        // Execute
-        $this->db->query($sql, array(
-            $data['post_title'],
-            $data['post_slug'],
-            $data['post_description'],
-            $data['post_leading'],
-            $data['post_content'],
-            $data['post_date_timestamp'],
-            $data['user_id'],
-            $data['post_status_id'],
-            $data['post_category_id']
-        ));
-    }
-
-
-    /**
-    * Update post
-    * @return void
-    */
-    public function update($data)
-    {
-        // Build query
-        $sql = 'UPDATE Posts SET Post_Title = ?, Post_Slug = ?, Post_Description = ?, Post_Leading = ?, Post_Content = ?, ';
-        $sql .= 'Post_Date = ?, User_ID = ?, Post_Status_ID = ?, Post_Category_ID = ? ';
-        $sql .= 'WHERE Post_ID = ?;';
+        // Get time
+        $time = time();
 
         // Execute
         $this->db->query($sql, array(
@@ -56,7 +34,39 @@ class Posts_model extends CI_Model{
             $data['user_id'],
             $data['post_status_id'],
             $data['post_category_id'],
-            $data['post_id']
+            $time,
+            $time,
+        ));
+    }
+
+
+    /**
+    * Update post
+    * @return void
+    */
+    public function update($data)
+    {
+        // Build query
+        $sql = 'UPDATE Posts SET Post_Title = ?, Post_Slug = ?, Post_Description = ?, Post_Leading = ?, Post_Content = ?, ';
+        $sql .= 'Post_Date = ?, User_ID = ?, Post_Status_ID = ?, Post_Category_ID = ?, Post_Date_Updated = ? ';
+        $sql .= 'WHERE Post_ID = ?;';
+
+        // Get time
+        $time = time();
+
+        // Execute
+        $this->db->query($sql, array(
+            $data['post_title'],
+            $data['post_slug'],
+            $data['post_description'],
+            $data['post_leading'],
+            $data['post_content'],
+            $data['post_date_timestamp'],
+            $data['user_id'],
+            $data['post_status_id'],
+            $data['post_category_id'],
+            $time,
+            $data['post_id'],
         ));
     }
 

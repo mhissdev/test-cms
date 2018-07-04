@@ -42,6 +42,24 @@ class Migration_Add_posts extends CI_Migration{
                 'type' => 'INT',
                 'constraint' => 11,
             ),
+            'Post_Date_Created' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+            ),
+            'Post_Date_Updated' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+            ),
+            'Post_Date_Publish_Start' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => TRUE,
+            ),
+            'Post_Date_Publish_End' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+                'null' => TRUE,
+            ),
             'User_ID' => array(
                 'type' => 'INT',
                 'constraint' => 11,

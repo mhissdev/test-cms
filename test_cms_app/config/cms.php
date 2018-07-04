@@ -4,7 +4,7 @@
 $config['site_name'] = 'Test CMS';
 
 // Default group for new users
-$config['deafult_user_group'] = 'Pending';
+$config['deafult_user_group'] = 'Admin';
 
 // Deny login to groups
 $config['deny_login_groups'] = array('pending', 'suspended');
