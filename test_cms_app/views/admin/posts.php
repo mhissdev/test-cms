@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 <?php $this->load->view('templates/admin_header_close'); ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <h3>Posts</h3>

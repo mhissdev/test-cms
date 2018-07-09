@@ -60,6 +60,12 @@ $route['admin/posts'] = 'admin_posts';
 $route['admin/posts/manage'] = 'admin_posts/manage';
 $route['admin/posts/manage/(:num)'] = 'admin_posts/manage/$1';
 
+// Images Admin
+$route['admin/images'] = 'admin_images';
+
+// Admin Settings
 $route['admin/settings'] = 'admin_settings';
+
+// General route
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

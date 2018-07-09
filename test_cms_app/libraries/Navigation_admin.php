@@ -23,6 +23,7 @@ class Navigation_admin extends Navigation_base
         $this->addItem('Dashboard', 'admin');
         $this->addItem('Categories', 'admin/categories');
         $this->addItem('Posts', 'admin/posts');
+        $this->addItem('Images', 'admin/images');
         $this->addItem('Settings', 'admin/settings');
     }
 }

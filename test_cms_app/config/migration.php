@@ -71,7 +71,7 @@ $config['migration_auto_latest'] = FALSE;
 */
 
 $config['migration_version'] = 20180626110200;
-//$config['migration_version'] = 0; // WARNIG: This will drop ALL tables!!!!
+//$config['migration_version'] = 0; // WARNING: This will drop ALL tables!!!!
 
 /*
 |--------------------------------------------------------------------------

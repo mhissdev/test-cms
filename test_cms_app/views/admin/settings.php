@@ -2,7 +2,7 @@
 <?php $this->load->view('templates/admin_header_open'); ?>
 <?php $this->load->view('templates/admin_header_close'); ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
                 <h3>Settings</h3>

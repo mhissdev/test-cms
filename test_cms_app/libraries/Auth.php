@@ -105,7 +105,7 @@ class Auth{
     */
     public function isLoggedIn()
     {
-        if(!empty($_SESSION['user_id']) && !empty($_SESSION['user_group']) && !empty($_SESSION['firstname']))
+        if(!empty($_SESSION['user_id']) && !empty($_SESSION['user_group']) && !empty($_SESSION['user_firstname']))
         {   
             // User is logged in
             return true;

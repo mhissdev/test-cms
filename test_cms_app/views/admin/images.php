@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h3>Dashboard</h3>
+                <h3>Images</h3>
             </div>
         </div>
     </div>
