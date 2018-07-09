@@ -19,6 +19,10 @@ class Migration_Add_images extends CI_Migration{
                 'unsigned' => TRUE,
                 'auto_increment' => TRUE
             ),
+            'Image_Upload_Date' => array(
+                'type' => 'INT',
+                'constraint' => 11,
+            ),
             'Image_Filename' => array(
                 'type' => 'VARCHAR',
                 'constraint' => '255',

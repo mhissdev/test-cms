@@ -167,7 +167,7 @@ class Admin_categories extends CI_Controller{
     */
     private function createCategoryRules()
     {
-        // Get data from form fields
+        // Validation rules
         $this->form_validation->set_rules('category_title', 'Category Title', 'trim|required|max_length[255]');
     }
 
