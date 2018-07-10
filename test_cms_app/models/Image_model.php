@@ -50,4 +50,22 @@ class Image_model extends CI_Model{
             $data['image_description']
         ));
     }
+
+
+    /**
+    * Get all images
+    * @return array
+    */
+    public function getAll()
+    {
+        // Build query
+        $sql = 'SELECT * FROM Images ORDER BY Image_Upload_Date DESC';
+
+        // Execute
+        $query = $this->db->query($sql);
+
+        // Return results 
+        return $query->result_array();
+
+    }
 }

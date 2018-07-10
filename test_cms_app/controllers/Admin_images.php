@@ -24,6 +24,9 @@ class Admin_images extends CI_Controller{
 
         // Load Image model
         $this->load->model('image_model');
+
+        // Get all images to output in a table
+        $this->data['images'] = $this->image_model->getAll();
     }
 
 
@@ -100,7 +103,7 @@ class Admin_images extends CI_Controller{
     private function uploadImage()
     {
         // Set config
-        $config['upload_path'] = FCPATH . '/uploads/images/';
+        $config['upload_path'] = FCPATH . $this->config->item('image_upload_dir');
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 4096; // 4 MB
         $config['file_ext_tolower'] = true;
@@ -123,6 +126,9 @@ class Admin_images extends CI_Controller{
 
             // Insert record into database
             $this->image_model->insert($this->data);
+
+            // Set success message
+            $this->data['action_message'] = '<p>Image has been successfullly uploaded!</p>';
         }
         else
         {
