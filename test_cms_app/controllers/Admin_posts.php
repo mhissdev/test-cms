@@ -335,7 +335,7 @@ class Admin_posts extends CI_Controller{
             $this->posts_model->insert($this->data);
 
             // Set success message
-            $this->session->set_flashdata('action_message', '<p>Post Successfully Added!</p>');
+            $this->session->set_flashdata('action_message', 'Post Successfully Added!');
 
             // Redirect to main admin posts page
             header('Location: ' . base_url() . 'admin/posts');
@@ -347,7 +347,7 @@ class Admin_posts extends CI_Controller{
             $this->posts_model->update($this->data);
 
             // Set success message
-            $this->session->set_flashdata('action_message', '<p>Post Successfully Updated!</p>');
+            $this->session->set_flashdata('action_message', 'Post Successfully Updated!');
 
             // Redirect to main admin posts page
             header('Location: ' . base_url() . 'admin/posts');

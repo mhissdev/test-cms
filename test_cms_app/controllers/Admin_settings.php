@@ -66,7 +66,7 @@ class Admin_settings extends CI_Controller{
             $this->auth->updatePassword($password);
 
             // Set success message
-            $this->data['action_message'] = '<p>Password Successfully updated</p>';
+            $this->data['action_message'] = 'Password Successfully updated';
          }
     }
 

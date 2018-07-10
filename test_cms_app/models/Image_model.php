@@ -53,6 +53,24 @@ class Image_model extends CI_Model{
 
 
     /**
+     * Update image details
+     * @return void
+     */
+    public function update($data)
+    {
+        // Build query
+        $sql = 'UPDATE Images SET Image_Title = ?, Image_Description = ? WHERE Image_ID = ?;';
+
+        // Execute
+        $this->db->query($sql, array(
+            $data['image_title'],
+            $data['image_description'],
+            $data['image_id']
+        ));
+    }
+
+
+    /**
     * Get all images
     * @return array
     */
@@ -67,5 +85,22 @@ class Image_model extends CI_Model{
         // Return results 
         return $query->result_array();
 
+    }
+
+
+    /**
+    * Get image by ID
+    * @return array
+    */
+    public function getByID($imageID)
+    {
+        // Build query
+        $sql = 'SELECT Image_Title, Image_Description, Image_Filename FROM Images WHERE Image_ID = ?';
+
+        // Execute
+        $query = $this->db->query($sql, array($imageID));
+
+        // Return results 
+        return $query->row_array();
     }
 }

@@ -125,7 +125,7 @@ class Admin_categories extends CI_Controller{
                     $this->post_categories_model->insert($this->data['category_title']);
 
                     // Set flash data message
-                    $this->session->set_flashdata('action_message', '<p>Category Successfully Added!</p>');
+                    $this->session->set_flashdata('action_message', 'Category Successfully Added!');
 
                     // Redirect to clear form
                     // Note: We can ether redirect to clear form or NOT use CI 'set_value'
@@ -139,7 +139,7 @@ class Admin_categories extends CI_Controller{
                     $this->post_categories_model->update($this->data);
 
                     // Set flash data message
-                    $this->session->set_flashdata('action_message', '<p>Category Successfully Updated!</p>');
+                    $this->session->set_flashdata('action_message', 'Category Successfully Updated!');
 
                     // Redirect to main category page
                     header('Location: ' . base_url() . 'admin/categories');

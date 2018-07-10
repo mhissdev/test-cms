@@ -27,6 +27,12 @@ class Admin_images extends CI_Controller{
 
         // Get all images to output in a table
         $this->data['images'] = $this->image_model->getAll();
+
+        // Get flash data
+        if(!empty($this->session->flashdata('action_message')))
+        {
+            $this->data['action_message'] = $this->session->flashdata('action_message');
+        }
     }
 
 
@@ -41,6 +47,63 @@ class Admin_images extends CI_Controller{
 
         // Load view
         $this->load->view('admin/images', $this->data);
+    }
+
+
+    /**
+     * Image Edit Page
+     */
+    public function edit($imageID = 0)
+    {
+        // Retrieve image data from database
+        $data = $this->image_model->getByID($imageID);
+
+        // Check we have image data
+        if(empty($data))
+        {
+            // Something went wrong
+            die('could not retrieve image data!');
+        }
+
+        // Copy data
+        $this->data['image_title'] = $data['Image_Title'];
+        $this->data['image_description'] = $data['Image_Description'];
+        $this->data['image_filename'] = $data['Image_Filename'];
+
+
+        // Check for POST data
+        if(!empty($_POST['image_edit_submit']))
+        {
+            // Get POST data
+            $this->data['image_id'] = $imageID;
+            $this->data['image_title'] = $this->input->post('image_title');
+            $this->data['image_description'] = $this->input->post('image_description');
+
+            // Create rules
+            $this->form_validation->set_rules('image_title', 'Image Title', 'trim|required|max_length[255]');
+
+            // Check for validation errors
+            if($this->form_validation->run() === false)
+            {
+                // Form contains validation errors
+                $this->data['validation_errors'] = validation_errors('<li>', '</li>');
+            }
+            else
+            {
+                // Update database
+                $this->image_model->update($this->data);
+
+                // Set flash data message
+                $this->session->set_flashdata('action_message', 'Image details successfully updated!');
+
+                // Redirect to main images page
+                header('Location: ' . base_url() . 'admin/images');
+                die();
+            }
+        }
+
+        // Load view
+        $this->load->view('admin/images-edit', $this->data);
     }
 
 
@@ -128,7 +191,11 @@ class Admin_images extends CI_Controller{
             $this->image_model->insert($this->data);
 
             // Set success message
-            $this->data['action_message'] = '<p>Image has been successfullly uploaded!</p>';
+            $this->session->set_flashdata('action_message', 'Image has been successfully uploaded!');
+
+            // Redirect to main images page
+            header('Location: ' . base_url() . 'admin/images');
+            die();
         }
         else
         {

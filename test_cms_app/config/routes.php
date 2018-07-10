@@ -62,6 +62,7 @@ $route['admin/posts/manage/(:num)'] = 'admin_posts/manage/$1';
 
 // Images Admin
 $route['admin/images'] = 'admin_images';
+$route['admin/images/edit/(:num)'] = 'admin_images/edit/$1';
 
 // Admin Settings
 $route['admin/settings'] = 'admin_settings';
