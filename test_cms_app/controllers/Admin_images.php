@@ -21,6 +21,9 @@ class Admin_images extends CI_Controller{
 
         // Set page title
         $this->data['page_title'] = $this->config->item('site_name') . ' | Images';
+
+        // Load Image model
+        $this->load->model('image_model');
     }
 
 
@@ -74,9 +77,9 @@ class Admin_images extends CI_Controller{
     private function getImagePostData()
     {
         // Get data from form fields
-        $this->data['image_upload_title'] = $this->input->post('image_upload_title');
-        $this->data['image_upload_description'] = $this->input->post('image_upload_description');
-        $this->data['image_upload_file'] = $this->input->post('image_upload_file');
+        $this->data['image_title'] = $this->input->post('image_upload_title');
+        $this->data['image_description'] = $this->input->post('image_upload_description');
+
     }
 
 
@@ -86,8 +89,7 @@ class Admin_images extends CI_Controller{
      */
     private function createImageRules()
     {
-        $this->form_validation->set_rules('image_upload_title', 'Image Title', 'trim|required|max_length[255]');
-        //$this->form_validation->set_rules('image_upload_file', 'Select Image', 'required');
+        $this->form_validation->set_rules('image_upload_title', 'Image Title', 'trim|max_length[255]');
     }
 
 
@@ -101,6 +103,8 @@ class Admin_images extends CI_Controller{
         $config['upload_path'] = FCPATH . '/uploads/images/';
         $config['allowed_types'] = 'gif|jpg|png';
         $config['max_size'] = 4096; // 4 MB
+        $config['file_ext_tolower'] = true;
+        $config['file_name'] = $this->getNewFilename();
 
         // Initialise CI upload class
         $this->load->library('upload', $config);
@@ -108,12 +112,52 @@ class Admin_images extends CI_Controller{
         // Attempt to opload file
         if($this->upload->do_upload('image_upload_file') === true)
         {
-            // Upload success
+            // Upload success - Set image filename to data array
+            $this->data['image_filename'] = $config['file_name'];
+
+            // If image title field is empty we will use the original filename for a title without extension
+            if(empty($this->data['image_title']))
+            {
+                $this->data['image_title'] = pathinfo($_FILES["image_upload_file"]["name"], PATHINFO_FILENAME);
+            }
+
+            // Insert record into database
+            $this->image_model->insert($this->data);
         }
         else
         {
             $this->data['validation_errors'] = $this->upload->display_errors('<li>', '</li>');
         }
+    }
+
+
+    /**
+     * Gets a unique filename for uploaded image
+     * @return string
+     */
+    private function getNewFilename()
+    {
+        $newFilename = '';
+
+        // Check we have a file 
+        if(!empty($_FILES["image_upload_file"]["name"]))
+        {
+            // Get original filename and extennsion
+            $filename = $_FILES["image_upload_file"]["name"];
+            $extension = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+
+            // Ensure new filename is unique
+            $isUnique = false;
+
+            while($isUnique === false)
+            {
+                $newFilename = md5($filename . time()) . '.' . $extension;
+                $isUnique = $this->image_model->isUnique($newFilename);
+            }
+        }
+
+        // return new filename
+        return $newFilename;
     }
 
 }

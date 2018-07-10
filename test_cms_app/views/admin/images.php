@@ -16,7 +16,7 @@
                 ?>
                 <?php echo form_open_multipart(current_url()); ?>
                 <div class="form-group">
-                    <label for="image_upload_title">Image Title <span class="text-danger">*</span></label>
+                    <label for="image_upload_title">Image Title</label>
                     <input type="text" name="image_upload_title" id="image_upload_title" class="form-control">
                 </div>
                 <div class="form-group">
