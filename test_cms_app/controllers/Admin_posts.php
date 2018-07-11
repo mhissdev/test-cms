@@ -33,6 +33,9 @@ class Admin_posts extends CI_Controller{
 
         // Load posts model
         $this->load->model('posts_model');
+
+        // Load image model
+        $this->load->model('image_model');
     }
 
 
@@ -86,6 +89,9 @@ class Admin_posts extends CI_Controller{
 
         // Process POST data
         $this->processPostData();
+
+        // Load images to display in modal
+        $this->data['modal_images'] = $this->image_model->getAll();
 
         // Load view
         $this->load->view('admin/posts_manage', $this->data);

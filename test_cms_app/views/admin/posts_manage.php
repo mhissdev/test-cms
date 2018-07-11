@@ -73,6 +73,51 @@
         </div>
     </div>
 
+    <!-- Select Image Modal -->
+    <div class="modal fade" id="image-select-modal" tabindex="-1" role="dialog" aria-labelledby="image-select-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="image-select-label">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <?php
+
+                    ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div class="modal-fade" id="select-image" tabindex="-1" role="dialog" aria-labelledby="select-image" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                The Content...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+
 <?php $this->load->view('templates/admin_footer_open'); ?>
 <script src="<?php echo base_url() . 'js/tinymce/tinymce.min.js' ?>"></script>
 <script>
@@ -81,7 +126,7 @@
         // Init datepicker
         $('#post_date').datepicker();
 
-        // Set format ("yy-mm-dd")
+        // Set format ("yyyy-mm-dd")
         $('#post_date').datepicker('option', 'dateFormat', 'yy-mm-dd');
         $('#post_date').datepicker('setDate', '<?php echo set_value('post_date', $post_date); ?>');
 
@@ -97,9 +142,10 @@
             toolbar: 'undo redo | bold italic | bullist numlist | link | code'
         });
 
-        // Insert Image
+        // Insert Image Button
         $('#image-insert').click(function(){
             // var content = '<img src="" alt="Some Image">';
+            $('#image-select-modal').modal();
             var content = '<p>TODO:</p>';
             tinymce.activeEditor.execCommand('mceInsertContent', false, content);
         });
